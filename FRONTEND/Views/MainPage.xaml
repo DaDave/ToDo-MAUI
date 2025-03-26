@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FRONTEND.MainPage"
+             Title="ToDos Übersicht">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="OnItemAdded" Text="+" />
+    </ContentPage.ToolbarItems>
+
+    <ListView
+        x:Name="ToDoListView"
+        Margin="20"
+        ItemSelected="OnListItemSelected">
+        <ListView.Header>
+            <Picker x:Name="ToDoFilterPicker"
+                    SelectedIndexChanged="OnFilterItemChanged"
+                    Title="Filter...">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Alle ToDos anzeigen</x:String>
+                        <x:String>Nur offene ToDos anzeigen</x:String>
+                        <x:String>Nur abgeschlossene ToDos anzeigen</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout
+                        Margin="20,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label 
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Center"
+                            Text="{Binding Title}" />
+                        <CheckBox 
+                            VerticalOptions="Center"
+                            IsEnabled="False"
+                            IsChecked="{Binding IsCompleted}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</ContentPage>
