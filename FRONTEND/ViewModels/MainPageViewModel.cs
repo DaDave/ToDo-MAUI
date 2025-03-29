@@ -8,35 +8,14 @@ namespace FRONTEND.ViewModels;
 
 public class MainPageViewModel
 {
-    private readonly IToDoReadRepository _toDoReadRepository;
-    
     public List<ToDoItem> ToDoItems { get; set; }
-    private List<ToDoItem> OriginToDoItems { get; set; }
 
-    public ICommand AppearingCommand { get; set; }
     public ICommand AddItemCommand { get; set; }
     public ICommand ItemSelectedCommand { get; set; }
 
-    public MainPageViewModel(IToDoReadRepository toDoReadRepository)
+    public MainPageViewModel()
     {
         ToDoItems = [];
-        _toDoReadRepository = toDoReadRepository;
-
-        AppearingCommand = new Command(async () =>
-        {
-            var resultingToDoItems = await _toDoReadRepository.Read();
-            if (resultingToDoItems != null)
-            {
-                ToDoItems = resultingToDoItems;
-                OriginToDoItems = resultingToDoItems;
-            }
-            else
-            {
-                await Toast.Make("Fehler beim Laden der ToDos")!.Show();
-                ToDoItems = [];
-                OriginToDoItems = [];
-            }
-        });
 
         AddItemCommand = new Command(async () =>
         {

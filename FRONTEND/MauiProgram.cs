@@ -25,12 +25,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
-        builder.Services.AddScoped<IToDoCreateRepository, ToDoCreateRepository>();
-        builder.Services.AddScoped<IToDoReadRepository, ToDoReadRepository>();
-        builder.Services.AddScoped<IToDoUpdateRepository, ToDoUpdateRepository>();
-        builder.Services.AddScoped<IToDoDeleteRepository, ToDoDeleteRepository>();
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<MainPageViewModel>();
+        builder.Services.AddTransient<IToDoCreateRepository, ToDoCreateRepository>();
+        builder.Services.AddTransient<IToDoReadRepository, ToDoReadRepository>();
+        builder.Services.AddTransient<IToDoUpdateRepository, ToDoUpdateRepository>();
+        builder.Services.AddTransient<IToDoDeleteRepository, ToDoDeleteRepository>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddTransient<ToDoItemPage>();
         builder.Services.AddTransient<ToDoItemPageViewModel>();
 

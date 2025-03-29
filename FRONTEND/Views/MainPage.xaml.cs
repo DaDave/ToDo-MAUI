@@ -9,13 +9,12 @@ public partial class MainPage
 {
     private readonly MainPageViewModel _mainPageViewModel;
     private readonly IToDoReadRepository _toDoReadRepository;
-    private List<ToDoItem> _toDoItems;
-    public MainPage(IToDoReadRepository toDoReadRepository)
+    public MainPage(IToDoReadRepository toDoReadRepository, MainPageViewModel mainPageViewModel)
     {
         _toDoReadRepository = toDoReadRepository;
-        _mainPageViewModel = new MainPageViewModel(_toDoReadRepository);
+        _mainPageViewModel = mainPageViewModel;
         InitializeComponent();
-        BindingContext = _mainPageViewModel;
+        BindingContext = mainPageViewModel;
     }
 
     protected override async void OnAppearing()
@@ -24,14 +23,16 @@ public partial class MainPage
         var toDoItems = await _toDoReadRepository.Read();
         if (toDoItems != null)
         {
-            _toDoItems = toDoItems;
+            _mainPageViewModel.ToDoItems = toDoItems;
             ToDoListView.ItemsSource = toDoItems;
         }
         else
         {
             await Toast.Make("Fehler beim Laden der ToDos:")!.Show();
+            _mainPageViewModel.ToDoItems = [];
             ToDoListView.ItemsSource = null;
         }
+        ToDoListView.ItemsSource = toDoItems;
     }
 
     private void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -49,9 +50,9 @@ public partial class MainPage
         
         ToDoListView.ItemsSource = selectedIndex switch
         {
-            0 => ToDoListView.ItemsSource = _toDoItems,
-            1 => ToDoListView.ItemsSource = _toDoItems.Where(x => x.IsCompleted == false).ToList(),
-            _ => ToDoListView.ItemsSource = _toDoItems.Where(x => x.IsCompleted).ToList(),
+            0 => ToDoListView.ItemsSource = _mainPageViewModel.ToDoItems,
+            1 => ToDoListView.ItemsSource = _mainPageViewModel.ToDoItems.Where(x => x.IsCompleted == false).ToList(),
+            _ => ToDoListView.ItemsSource = _mainPageViewModel.ToDoItems.Where(x => x.IsCompleted).ToList(),
         };
     }
 }

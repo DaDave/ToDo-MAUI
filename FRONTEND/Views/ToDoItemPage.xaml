@@ -24,9 +24,9 @@
                 <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding ToDoItem.IsCompleted}" />
             </StackLayout>
 
-            <Button Command="{Binding SaveCommand}" Text="Speichern" />
-            <Button Command="{Binding DeleteCommand}" Text="Löschen" />
-            <Button Command="{Binding CancelCommand}" Text="Abbrechen" />
+            <Button Command="{Binding SaveCommand}" BackgroundColor="CornflowerBlue" Text="Speichern" />
+            <Button Command="{Binding DeleteCommand}" BackgroundColor="CornflowerBlue" Text="Löschen" />
+            <Button Command="{Binding CancelCommand}" BackgroundColor="CornflowerBlue" Text="Abbrechen" />
 
         </StackLayout>
     </ContentPage.Content>

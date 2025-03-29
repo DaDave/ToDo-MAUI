@@ -9,10 +9,6 @@ namespace FRONTEND.ViewModels;
 
 public class ToDoItemPageViewModel
 {
-    private readonly IToDoCreateRepository _toDoCreateRepository;
-    private readonly IToDoUpdateRepository _toDoUpdateRepository;
-    private readonly IToDoDeleteRepository _toDoDeleteRepository;
-
     public ToDoItem? ToDoItem { get; set; }
 
     public ICommand SaveCommand { get; set; }
@@ -26,20 +22,17 @@ public class ToDoItemPageViewModel
         IToDoDeleteRepository toDoDeleteRepository)
     {
         ToDoItem = toDoItem;
-        _toDoCreateRepository = toDoCreateRepository;
-        _toDoUpdateRepository = toDoUpdateRepository;
-        _toDoDeleteRepository = toDoDeleteRepository;
 
         SaveCommand = new Command(async () =>
         {
             bool isSuccessful;
             if (toDoItem.Id == default)
             {
-                isSuccessful = await _toDoCreateRepository.Create(toDoItem);
+                isSuccessful = await toDoCreateRepository.Create(toDoItem);
             }
             else
             {
-                isSuccessful = await _toDoUpdateRepository.Update(toDoItem);
+                isSuccessful = await toDoUpdateRepository.Update(toDoItem);
             }
 
             if (!isSuccessful)
@@ -57,7 +50,7 @@ public class ToDoItemPageViewModel
                 await Toast.Make("Fehler beim Löschen des ToDos: Noch nicht erstellte ToDos können nicht gelöscht werden.")!.Show();
                 return;
             }
-            var isDeleted = await _toDoDeleteRepository.Delete(toDoItem.Id);
+            var isDeleted = await toDoDeleteRepository.Delete(toDoItem.Id);
             if (!isDeleted)
             {
                 await Toast.Make("Fehler beim Löschen des ToDos")!.Show();
