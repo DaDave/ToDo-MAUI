@@ -16,7 +16,7 @@ public class ToDoCreateRepository : IToDoCreateRepository
     {
         var toDoItemJson = JsonConvert.SerializeObject(toDoItem);
         var httpContent = new StringContent(toDoItemJson, System.Text.Encoding.UTF8, "application/json");
-        var result = await _httpClient.PostAsync(BackendConstants.TodoUrl, httpContent);
+        var result = await _httpClient.PostAsync(BackendConstants.TodoCreateUrl, httpContent);
         return result.IsSuccessStatusCode;
     }
 }

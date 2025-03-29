@@ -16,7 +16,7 @@ public class ToDoUpdateRepository : IToDoUpdateRepository
     {
         var toDoItemJson = JsonConvert.SerializeObject(toDoItem);
         var httpContent = new StringContent(toDoItemJson, System.Text.Encoding.UTF8, "application/json");
-        var result = await _httpClient.PutAsync(BackendConstants.TodoUrl + "/" + toDoItem.Id, httpContent);
+        var result = await _httpClient.PutAsync(BackendConstants.TodoUpdateUrl + "/" + toDoItem.Id, httpContent);
         return result.IsSuccessStatusCode;
     }
 }

@@ -14,7 +14,7 @@ public class ToDoReadRepository : IToDoReadRepository
 
     public async Task<List<ToDoItem>?> Read()
     {
-        var result = await _httpClient.GetAsync(BackendConstants.TodoUrl);
+        var result = await _httpClient.GetAsync(BackendConstants.TodoReadUrl);
         if (!result.IsSuccessStatusCode) return null;
         var responseContent = await result.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<List<ToDoItem>>(responseContent);

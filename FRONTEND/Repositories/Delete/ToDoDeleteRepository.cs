@@ -11,7 +11,7 @@ public class ToDoDeleteRepository : IToDoDeleteRepository
 
     public async Task<bool> Delete(int id)
     {
-        var result = await _httpClient.DeleteAsync(BackendConstants.TodoUrl + "/" + id);
+        var result = await _httpClient.DeleteAsync(BackendConstants.TodoDeleteUrl + "/" + id);
         return result.IsSuccessStatusCode;
     }
 }

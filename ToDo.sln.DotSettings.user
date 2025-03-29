@@ -6,9 +6,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AShell_002Ecs_002Fl_003AC_0021_003FUsers_003Fdadav_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003Fd361cd97891c9af5de5ce4bf3bbf109760bf4917802a55488d93e2d3a89c5b_003FShell_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AToolbarItem_002Ecs_002Fl_003AC_0021_003FUsers_003Fdadav_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003Fcab09d928285746bb98f7797e72ee0dcbfe1e4421d96dcbb21a7a1d89de153_003FToolbarItem_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4fb95477_002D5267_002D44f7_002D8a65_002D65685c33bffa/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ToDoControllerTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F9AFFAD5-CC64-4A95-BC35-9405827945E8::net8.0::BACKEND_TESTS.Controllers.ToDoControllerTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;ProjectFolder&gt;F9AFFAD5-CC64-4A95-BC35-9405827945E8/d:Controllers&lt;/ProjectFolder&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5e18a00e_002D1dfd_002D4c09_002D86c6_002Dd6b6b5285494/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ToDoControllerTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
