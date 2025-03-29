@@ -2,7 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FRONTEND.ToDoItemPage"
+             x:Class="FRONTEND.Views.ToDoItemPage"
              Title="ToDos bearbeiten">
     <ContentPage.Content>
         <StackLayout
@@ -11,22 +11,22 @@
             VerticalOptions="StartAndExpand">
 
             <Label Text="Titel" />
-            <Entry Text="{Binding Title}" />
+            <Entry Text="{Binding ToDoItem.Title}" />
 
             <Label Text="Text" />
-            <Entry Text="{Binding Text}" />
+            <Entry Text="{Binding ToDoItem.Text}" />
 
             <StackLayout Orientation="Horizontal">
                 <Label
                     Margin="0,10"
                     HorizontalOptions="StartAndExpand"
                     Text="ToDo abgeschlossen?" />
-                <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsCompleted}" />
+                <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding ToDoItem.IsCompleted}" />
             </StackLayout>
 
-            <Button Clicked="OnSaveClicked" Text="Speichern" />
-            <Button Clicked="OnDeleteClicked" Text="Löschen" />
-            <Button Clicked="OnCancelClicked" Text="Abbrechen" />
+            <Button Command="{Binding SaveCommand}" Text="Speichern" />
+            <Button Command="{Binding DeleteCommand}" Text="Löschen" />
+            <Button Command="{Binding CancelCommand}" Text="Abbrechen" />
 
         </StackLayout>
     </ContentPage.Content>

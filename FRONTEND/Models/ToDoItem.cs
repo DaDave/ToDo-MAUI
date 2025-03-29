@@ -1,4 +1,4 @@
-﻿namespace FRONTEND.ViewModels;
+﻿namespace FRONTEND.Models;
 
 public class ToDoItem
 {

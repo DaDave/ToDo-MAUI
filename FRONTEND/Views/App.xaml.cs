@@ -1,4 +1,4 @@
-﻿namespace FRONTEND;
+﻿namespace FRONTEND.Views;
 
 public partial class App
 {

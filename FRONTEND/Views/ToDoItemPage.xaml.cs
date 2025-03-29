@@ -1,59 +1,43 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using FRONTEND.Models;
+using FRONTEND.Repositories.Create;
+using FRONTEND.Repositories.Delete;
+using FRONTEND.Repositories.Update;
 using FRONTEND.ViewModels;
-using Newtonsoft.Json;
 
-namespace FRONTEND;
+namespace FRONTEND.Views;
 
+[QueryProperty(nameof(ToDoItem), "Item")]
 public partial class ToDoItemPage
 {
-    private readonly HttpClient _httpClient;
-    public ToDoItemPage(HttpClient httpClient)
+    public ToDoItem ToDoItem
     {
-        _httpClient = httpClient;
+        set => Load(value);
+    }
+
+    private readonly IToDoCreateRepository _toDoCreateRepository;
+    private readonly IToDoUpdateRepository _toDoUpdateRepository;
+    private readonly IToDoDeleteRepository _toDoDeleteRepository;
+
+    public ToDoItemPage(
+        IToDoCreateRepository toDoCreateRepository,
+        IToDoUpdateRepository toDoUpdateRepository,
+        IToDoDeleteRepository toDoDeleteRepository)
+    {
+        _toDoCreateRepository = toDoCreateRepository;
+        _toDoUpdateRepository = toDoUpdateRepository;
+        _toDoDeleteRepository = toDoDeleteRepository;
         InitializeComponent();
     }
 
-    private async void OnSaveClicked(object? sender, EventArgs e)
+    private void Load(ToDoItem toDoItem)
     {
-        //Request to Backend CREATE or UPDATE
-        var toDoItem = (ToDoItem)BindingContext;
-        var toDoItemJson = JsonConvert.SerializeObject(toDoItem);
-        var httpContent = new StringContent(toDoItemJson, System.Text.Encoding.UTF8, "application/json");
-        HttpResponseMessage result;
-        if (toDoItem.Id == default)
+        if (toDoItem != null)
         {
-            result = await _httpClient.PostAsync(BackendConstants.TodoUrl, httpContent);
+            BindingContext = new ToDoItemPageViewModel(
+                toDoItem, 
+                _toDoCreateRepository, 
+                _toDoUpdateRepository,
+                _toDoDeleteRepository);
         }
-        else
-        {
-            result = await _httpClient.PutAsync(BackendConstants.TodoUrl + "/" + toDoItem.Id, httpContent);
-        }
-        if (!result.IsSuccessStatusCode)
-        {
-            await Toast.Make("Fehler beim Speichern des ToDos: " + result.StatusCode)!.Show();
-        }
-        await Navigation.PopAsync();
-    }
-
-    private async void OnDeleteClicked(object? sender, EventArgs e)
-    {
-        //Request to Backend DELETE
-        var toDoItem = (ToDoItem)BindingContext;
-        if (toDoItem.Id == default)
-        {
-            await Toast.Make("Fehler beim Löschen des ToDos: Noch nicht erstellte ToDos können nicht gelöscht werden.")!.Show();
-            return;
-        }
-        var result = await _httpClient.DeleteAsync(BackendConstants.TodoUrl + "/" + toDoItem.Id);
-        if (!result.IsSuccessStatusCode)
-        {
-            await Toast.Make("Fehler beim Löschen des ToDos: " + result.StatusCode)!.Show();
-        }
-        await Navigation.PopAsync();
-    }
-
-    private async void OnCancelClicked(object? sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
     }
 }

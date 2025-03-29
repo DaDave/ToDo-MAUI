@@ -1,57 +1,44 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using FRONTEND.Models;
+using FRONTEND.Repositories.Read;
 using FRONTEND.ViewModels;
-using Newtonsoft.Json;
 
-namespace FRONTEND;
+namespace FRONTEND.Views;
 
 public partial class MainPage
 {
-    private readonly HttpClient _httpClient;
+    private readonly MainPageViewModel _mainPageViewModel;
+    private readonly IToDoReadRepository _toDoReadRepository;
     private List<ToDoItem> _toDoItems;
-    public MainPage()
+    public MainPage(IToDoReadRepository toDoReadRepository)
     {
-        _httpClient = new HttpClient();
+        _toDoReadRepository = toDoReadRepository;
+        _mainPageViewModel = new MainPageViewModel(_toDoReadRepository);
         InitializeComponent();
+        BindingContext = _mainPageViewModel;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        //Request to Backend GETALL
-        var result = await _httpClient.GetAsync(BackendConstants.TodoUrl);
-        if (result.IsSuccessStatusCode)
+        var toDoItems = await _toDoReadRepository.Read();
+        if (toDoItems != null)
         {
-            var responseContent = await result.Content.ReadAsStringAsync();
-            var resultingToDoItems = JsonConvert.DeserializeObject<List<ToDoItem>>(responseContent);
-            _toDoItems = resultingToDoItems;
-            ToDoListView.ItemsSource = resultingToDoItems;
+            _toDoItems = toDoItems;
+            ToDoListView.ItemsSource = toDoItems;
         }
         else
         {
-            await Toast.Make("Fehler beim Laden der ToDos: " + result.StatusCode)!.Show();
+            await Toast.Make("Fehler beim Laden der ToDos:")!.Show();
             ToDoListView.ItemsSource = null;
         }
     }
 
-    private async void OnItemAdded(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ToDoItemPage(_httpClient)
-        {
-            BindingContext = new ToDoItem
-            {
-                IsCompleted = true
-            }
-        });
-    }
-
-    private async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         if (e.SelectedItem != null)
         {
-            await Navigation.PushAsync(new ToDoItemPage(_httpClient)
-            {
-                BindingContext = e.SelectedItem as ToDoItem
-            });
+            _mainPageViewModel.ItemSelectedCommand.Execute(e.SelectedItem as ToDoItem);
         }
     }
 
