@@ -17,10 +17,10 @@ The backend is based on the target framework .NET 8.0. to-dos are persisted via 
 1. Open the ToDo.sln in Rider or Visual Studio
 2. Execute configuration "BACKEND:http" to run the application
 3. Use CRUD-Commands by sending the following HTTP-Commands:
-4. GET all to-dos in database: http://127.0.0.1:5036/api/ToDo
-5. POST single to-do to add into database: http://127.0.0.1:5036/api/ToDo (Body: )
-6. PUT single to-do to modify existing todo in database: http://127.0.0.1:5036/api/ToDo/_idOfToDo_ (Body: )
-7. DELETE single to-do in database: http://127.0.0.1:5036/api/ToDo/_idOfToDo_
+4. GET all to-dos in database: http://127.0.0.1:5036/api/todo/read
+5. POST single to-do to add into database: http://127.0.0.1:5036/api/todo/create
+6. PUT single to-do to modify existing todo in database: http://127.0.0.1:5036/api/todo/update/_idOfToDo_
+7. DELETE single to-do in database: http://127.0.0.1:5036/api/todo/delete/_idOfToDo_
 
 ## Frontend
 The front end is designed as a MAUI Android application. All to-dos are to be displayed in an overview and made selectable. It should be possible to create, modify, filter and delete to-dos via the interface.
@@ -42,3 +42,9 @@ The front end is designed as a MAUI Android application. All to-dos are to be di
 4. Press "+" button in the upper right to add a new to-do (to persist your input please press "Speichern")
 5. Press any list item to modify to-do (to persist your input please press "Speichern", if you want to delete an entry please press "Löschen")
 6. By selecting "Filtern..." inside the overview you'll be able to filter your list based on "IsCompleted"-Property
+
+## Images
+
+![img_2.png](img_2.png)
+![img_1.png](img_1.png)
+![img_3.png](img_3.png)
